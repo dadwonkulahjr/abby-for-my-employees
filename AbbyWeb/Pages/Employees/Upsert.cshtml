@@ -1,0 +1,161 @@
+﻿@page
+@model AbbyWeb.Pages.Employees.UpsertModel
+@{
+    if (Model.EmployeeViewModel.Employee.Id == 0)
+    {
+        ViewData["Title"] = "Create new employee";
+    }
+    else
+    {
+        ViewData["Title"] = "Update employee";
+    }
+}
+
+<div class="container shadow">
+    <div class="row">
+        <div class="border mt-3" style="padding:30px;">
+            @if (Model.EmployeeViewModel.Employee.Id == 0)
+            {
+                <div class="col-9">
+                    <h5 class="text-success">
+                        <i class="bi bi-person-plus"></i>&nbsp;Create new employee
+                    </h5>
+                </div>
+            }
+            else
+            {
+                <div class="col-9">
+                    <h5 class="text-success">
+                        <i class="bi bi-pencil-square"></i>&nbsp;Update employee
+                    </h5>
+
+                </div>
+            }
+            <hr />
+
+            <form method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                @if (Model.EmployeeViewModel.Employee.Id != 0)
+                {
+                    <input hidden="hidden" asp-for="EmployeeViewModel.Employee.Id" />
+                }
+                <div class="row">
+                    @if (Model.EmployeeViewModel.Employee.Id != 0)
+                    {
+                        <div class="col-3">
+                            <label asp-for="EmployeeViewModel.Employee.FullName"></label>
+                        </div>
+                        <div class="col-9">
+                            <input asp-for="EmployeeViewModel.Employee.FullName" class="form-control" disabled="disabled" />
+                            <span asp-validation-for="EmployeeViewModel.Employee.FullName" class="text-danger"></span>
+                        </div>
+                    }
+                    <div class="col-3 mt-1">
+                        <label asp-for="EmployeeViewModel.Employee.FirstName"></label>
+                    </div>
+                    <div class="col-9 mt-1">
+                        <input asp-for="EmployeeViewModel.Employee.FirstName" class="form-control" placeholder="Firstname..."/>
+                        <span asp-validation-for="EmployeeViewModel.Employee.FirstName" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="col-3 mt-1">
+                        <label asp-for="EmployeeViewModel.Employee.LastName"></label>
+                    </div>
+                    <div class="col-9 mt-1">
+                        <input asp-for="EmployeeViewModel.Employee.LastName" class="form-control" placeholder="Lastname..." />
+                        <span asp-validation-for="EmployeeViewModel.Employee.LastName" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-3 mt-1">
+                        <label asp-for="EmployeeViewModel.Employee.Address"></label>
+                    </div>
+                    <div class="col-9 mt-1">
+                        <textarea asp-for="EmployeeViewModel.Employee.Address" class="form-control" placeholder="Address...">
+
+                        </textarea>
+                        <span asp-validation-for="EmployeeViewModel.Employee.Address" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-3 mt-1">
+                        <label asp-for="EmployeeViewModel.Employee.Telephone"></label>
+                    </div>
+                    <div class="col-9 mt-1">
+                        <input type="number" asp-for="EmployeeViewModel.Employee.Telephone" class="form-control" placeholder="Phone..." />
+                        <span asp-validation-for="EmployeeViewModel.Employee.Telephone" class="text-danger"></span>
+                    </div>
+                    <div class="col-3 mt-1">
+                        <label asp-for="EmployeeViewModel.Employee.Salary"></label>
+                    </div>
+                    <div class="col-9 mt-1">
+                        <input type="number" asp-for="EmployeeViewModel.Employee.Salary" class="form-control" placeholder="Salary..."/>
+                        <span asp-validation-for="EmployeeViewModel.Employee.Salary" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-3 mt-1">
+                        <label asp-for="EmployeeViewModel.Employee.Dob"></label>
+                    </div>
+                    <div class="col-9 mt-1">
+                        <input asp-for="EmployeeViewModel.Employee.Dob" type="date" class="form-control" />
+                        <span asp-validation-for="EmployeeViewModel.Employee.Dob" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-3 mt-1">
+                        <label asp-for="EmployeeViewModel.Employee.GenderId"></label>
+                    </div>
+                    <div class="col-9 mt-1">
+                        @Html.DropDownListFor(x => x.EmployeeViewModel.Employee.GenderId,
+                       Model.EmployeeViewModel.GetDropdownListForGender,
+                       "Select gender", new { @class = "form-select" })
+                        <span asp-validation-for="EmployeeViewModel.Employee.GenderId" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-3 mt-1">
+                        <label asp-for="EmployeeViewModel.Employee.OccupationId"></label>
+                    </div>
+                    <div class="col-9 mt-1">
+                        @Html.DropDownListFor(x => x.EmployeeViewModel.Employee.OccupationId,
+                       Model.EmployeeViewModel.GetDropdownListForOccupation,
+                       "Select occupation", new { @class = "form-select" })
+                        <span asp-validation-for="EmployeeViewModel.Employee.OccupationId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group row mt-3">
+                        <div class="col-9 offset-3">
+                            <div class="row">
+                                <div class="col-6">
+                                    @if (Model.EmployeeViewModel.Employee.Id != 0)
+                                    {
+                                        <button type="submit" class="btn btn-info form-control" style="margin-left:10px;">
+                                            <i class="bi bi-pencil"></i>&nbsp;Update employee
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <button type="submit" class="btn btn-primary form-control">
+                                            <i class="bi bi-plus-lg"></i>&nbsp;Create new employee
+
+                                        </button>
+                                    }
+
+                                </div>
+                                <div class="col-6">
+                                    <a asp-page="./Index" class="btn btn-success form-control">
+                                        <i class="bi bi-card-list"></i>&nbsp;Back To List
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}
